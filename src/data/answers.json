@@ -1,0 +1,12 @@
+[
+  {
+    "questionId": "1",
+    "selectedAnswer": 3,
+    "isCorrect": false
+  },
+  {
+    "questionId": "2",
+    "selectedAnswer": 1,
+    "isCorrect": true
+  }
+]
