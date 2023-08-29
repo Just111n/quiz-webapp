@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Box } from "@mui/material";
 
-const QuizActions = ({
+const Actions = ({
   currentQuestionIndex,
   totalQuestions,
   onNext,
   onPrevious,
+  onRestart,
+  appState,
+  onSubmit,
 }) => {
   return (
     <Box
@@ -23,11 +26,20 @@ const QuizActions = ({
         Previous
       </Button>
 
-      <Button variant="contained" onClick={onNext}>
-        {currentQuestionIndex === totalQuestions - 1 ? "Submit" : "Next"}
+      <Button
+        variant="contained"
+        onClick={onNext}
+        disabled={currentQuestionIndex === totalQuestions - 1}
+      >
+        Next
       </Button>
+      {currentQuestionIndex === totalQuestions - 1 && (
+        <Button variant="contained" onClick={onSubmit}>
+          Submit
+        </Button>
+      )}
     </Box>
   );
 };
 
-export default QuizActions;
+export default Actions;

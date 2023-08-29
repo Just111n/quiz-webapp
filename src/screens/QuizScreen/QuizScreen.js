@@ -1,23 +1,29 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import QuizActions from "./components/QuizActions";
 import QuestionDisplay from "../../components/QuestionDisplay";
-import AnswerDisplay from "../../components/AnswersDisplay";
+import AnswersDisplay from "../../components/AnswersDisplay";
 import ConfirmDialog from "./components/ConfirmDialog";
+import Actions from "../../components/Actions";
 
-const QuizScreen = ({ questions, onSubmit }) => {
+const QuizScreen = ({ questions, onSubmit, appState, onSave }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+
+  // Initialize savedAnswers as an array of nulls, representing no answer saved for each question.
+  const [savedAnswers, setSavedAnswers] = useState(
+    Array(questions.length).fill(null)
+  );
+
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
+  const currentQuestion = questions[currentQuestionIndex];
+
   const handleNext = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      handleOpenSubmitDialog();
-    }
+    // Here, you can do something with the currentSavedAnswer if needed.
+    // For example, you might want to check if it exists, if it's correct, etc.
+
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
   const handlePrevious = () => {
@@ -25,8 +31,9 @@ const QuizScreen = ({ questions, onSubmit }) => {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
-
-  const currentQuestion = questions[currentQuestionIndex];
+  const handleSubmit = () => {
+    handleOpenSubmitDialog();
+  };
 
   const handleTimeOut = () => {
     onSubmit();
@@ -40,17 +47,34 @@ const QuizScreen = ({ questions, onSubmit }) => {
   };
   const handleActualSubmit = () => {
     setOpenConfirmDialog(false);
-    onSubmit();
+    onSubmit(savedAnswers);
   };
+  const handleSelect = (answerIndex, isCorrect) => {
+    const newSavedAnswers = [...savedAnswers];
+    newSavedAnswers[currentQuestionIndex] = { answerIndex, isCorrect };
+    setSavedAnswers(newSavedAnswers);
+  };
+  useEffect(() => {
+    // Check if savedAnswer exists and has an answerIndex property. If so, update the selectedCardIndex.
+    if (savedAnswers[currentQuestionIndex]) {
+      setSelectedCardIndex(savedAnswers[currentQuestionIndex].answerIndex);
+    } else {
+      // Reset the selected card index to null
+      setSelectedCardIndex(null);
+    }
+  }, [savedAnswers, currentQuestionIndex]); // This will run every time savedAnswer changes
+
   return (
     <Box paddingTop={10}>
       <Grid container>
         <Grid xs={12}>
-          <QuizActions
+          <Actions
             currentQuestionIndex={currentQuestionIndex}
             totalQuestions={questions.length}
             onNext={handleNext}
             onPrevious={handlePrevious}
+            appState={appState}
+            onSubmit={handleSubmit}
           />
         </Grid>
         <Grid xs={12}>
@@ -63,7 +87,13 @@ const QuizScreen = ({ questions, onSubmit }) => {
           />
         </Grid>
         <Grid xs={12}>
-          <AnswerDisplay answers={currentQuestion.answers} />
+          <AnswersDisplay
+            answers={currentQuestion.answers}
+            appState={appState}
+            onSelect={handleSelect}
+            selectedCardIndex={selectedCardIndex}
+            // Provide the saved answer for the current question
+          />
         </Grid>
       </Grid>
       <ConfirmDialog

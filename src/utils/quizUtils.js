@@ -31,5 +31,12 @@ const formatTime = (totalSeconds) => {
   )}`;
 };
 
+const getScore = (savedAnswers) => {
+  const correctAnswers = savedAnswers.filter((answer) => answer.isCorrect);
+
+  const score = correctAnswers.length;
+  return score;
+};
+
 // Usage:
-export { randomizeQuestions,formatTime };
+export { randomizeQuestions, formatTime, getScore };

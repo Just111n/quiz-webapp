@@ -7,7 +7,7 @@ import ScoreScreen from "./screens/ScoreScreen/ScoreScreen";
 import QuizScreen from "./screens/QuizScreen/QuizScreen";
 import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
 import QUESTIONS from "./data/questions.json";
-import { randomizeQuestions } from "./utils/quizUtils";
+import { getScore, randomizeQuestions } from "./utils/quizUtils";
 
 const APP_STATES = {
   INIT: "init",
@@ -31,12 +31,18 @@ function App() {
     setAppState(APP_STATES.INIT);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (savedAnswers) => {
+    setScore(getScore(savedAnswers));
+
     setAppState(APP_STATES.SHOW_SCORE);
+    console.log(savedAnswers);
   };
 
   const handleReview = () => {
     setAppState(APP_STATES.REVIEW);
+  };
+  const handleSave = (savedAnswer, currentQuestionIndex) => {
+    // console.log("app.js", savedAnswer, currentQuestionIndex);
   };
 
   return (
@@ -45,7 +51,12 @@ function App() {
         <StartQuizScreen onStartQuiz={handleStartQuiz} />
       )}
       {appState === APP_STATES.START_QUIZ && (
-        <QuizScreen questions={questions} onSubmit={handleSubmit} />
+        <QuizScreen
+          questions={questions}
+          onSubmit={handleSubmit}
+          appState={appState}
+          onSave={handleSave}
+        />
       )}
       {appState === APP_STATES.SHOW_SCORE && (
         <ScoreScreen
