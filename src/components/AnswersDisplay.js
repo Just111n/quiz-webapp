@@ -6,16 +6,36 @@ import {
   Box,
   Card,
   CardContent,
+  useTheme,
 } from "@mui/material";
+import { APP_STATES } from "../config/constants";
 
 const AnswersDisplay = ({ answers, appState, onSelect, selectedCardIndex }) => {
-  // Initialize the selectedCardIndex using the savedAnswer's answerIndex, if available
+  const theme = useTheme(); // Add this line
 
   const handleSelect = (answerIndex) => {
-    const isCorrect = answers[answerIndex].correct;
-    onSelect(answerIndex, isCorrect);
+    if (appState === APP_STATES.START_QUIZ) {
+      const isCorrect = answers[answerIndex].correct;
+      onSelect(answerIndex, isCorrect);
+    }
   };
-  // console.log(selectedCardIndex);
+
+  const getCardBackgroundColor = (index) => {
+    if (appState === APP_STATES.START_QUIZ) {
+      return selectedCardIndex === index
+        ? theme.customPalette.hoverAnswer // Use theme
+        : theme.palette.background.default; // Use theme's default
+    }
+    if (appState === APP_STATES.REVIEW) {
+      if (answers[index].correct) {
+        return theme.palette.success.main; // Use theme's success color
+      }
+      if (!answers[index].correct & (selectedCardIndex === index)) {
+        return theme.palette.error.main; // Use theme's error color
+      }
+      return theme.palette.background.default; // Use theme's default
+    }
+  };
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
@@ -27,11 +47,22 @@ const AnswersDisplay = ({ answers, appState, onSelect, selectedCardIndex }) => {
               sx={{
                 borderRadius: 1,
                 minWidth: 640,
-                backgroundColor:
-                  selectedCardIndex === index ? "#312E81" : "default", // Change background color based on the selected card
+                backgroundColor: getCardBackgroundColor(index),
+                ...(appState === APP_STATES.START_QUIZ && {
+                  "&:hover": {
+                    backgroundColor: theme.customPalette.hoverAnswer, // Your hover color from theme
+                    cursor: "pointer",
+                  },
+                }),
               }}
             >
-              <ListItemButton onClick={() => handleSelect(index)}>
+              <ListItemButton
+                onClick={() => {
+                  if (appState === APP_STATES.START_QUIZ) {
+                    handleSelect(index);
+                  }
+                }}
+              >
                 <CardContent>
                   <Typography variant="body1">
                     {index + 1}

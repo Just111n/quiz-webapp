@@ -1,50 +1,59 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import Actions from "../../components/Actions";
 import QuestionDisplay from "../../components/QuestionDisplay";
 import AnswersDisplay from "../../components/AnswersDisplay";
+import Actions from "../../components/Actions";
 
-const ReviewScreen = ({ onRestart, questions }) => {
-  // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const ReviewScreen = ({ questions, appState, onRestart, submittedAnswers }) => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  // const handleNext = () => {
-  //   setCurrentQuestionIndex(currentQuestionIndex + 1);
-  // };
+  // Initialize savedAnswers as an array of nulls, representing no answer saved for each question.
 
-  // const handlePrevious = () => {
-  //   if (currentQuestionIndex > 0) {
-  //     setCurrentQuestionIndex(currentQuestionIndex - 1);
-  //   }
-  // };
+  const currentQuestion = questions[currentQuestionIndex];
+  const selectedCardIndex = submittedAnswers[currentQuestionIndex]?.answerIndex;
 
-  // const currentQuestion = questions[currentQuestionIndex];
+  const handleNext = () => {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
 
   return (
     <Box paddingTop={10}>
-      {/* <Grid container>
+      <Grid container>
         <Grid xs={12}>
           <Actions
             currentQuestionIndex={currentQuestionIndex}
             totalQuestions={questions.length}
             onNext={handleNext}
             onPrevious={handlePrevious}
+            appState={appState}
+            onRestart={onRestart}
           />
         </Grid>
         <Grid xs={12}>
           <QuestionDisplay
             question={currentQuestion.question_content}
-            isReview={false}
+            isReview={true}
             currentQuestionIndex={currentQuestionIndex}
             totalQuestions={questions.length}
+            appState={appState}
           />
         </Grid>
         <Grid xs={12}>
-          <AnswersDisplay answers={currentQuestion.answers} />
+          <AnswersDisplay
+            answers={currentQuestion.answers}
+            appState={appState}
+            selectedCardIndex={selectedCardIndex}
+            // Provide the saved answer for the current question
+          />
         </Grid>
-      </Grid> */}
+      </Grid>
     </Box>
   );
 };

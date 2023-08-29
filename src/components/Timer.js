@@ -5,7 +5,9 @@ import { formatTime } from "../utils/quizUtils";
 const TIMER_DURATION = 90;
 
 const Timer = ({ onStart, onTimeOut, isTimeOut }) => {
-  const [secondsRemaining, setSecondsRemaining] = useState(TIMER_DURATION);
+  const [secondsRemaining, setSecondsRemaining] = useState(
+    isTimeOut ? 0 : TIMER_DURATION
+  );
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {

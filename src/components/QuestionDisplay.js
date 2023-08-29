@@ -7,20 +7,29 @@ import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Timer from "./Timer";
+import { APP_STATES } from "../config/constants";
 
 const QuestionDisplay = ({
   question,
   onStart,
   onTimeOut,
-  isReview,
   currentQuestionIndex,
   totalQuestions,
+  appState,
 }) => {
   const handleTimeOut = () => {
-    onTimeOut();
+    if (appState === APP_STATES.START_QUIZ) {
+      onTimeOut();
+    }
   };
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" marginTop={5} marginBottom={5}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      marginTop={5}
+      marginBottom={5}
+    >
       <Card
         sx={{
           height: 328,
@@ -31,7 +40,10 @@ const QuestionDisplay = ({
         }}
       >
         <CardContent>
-          <Timer onTimeOut={handleTimeOut} />
+          <Timer
+            onTimeOut={handleTimeOut}
+            isTimeOut={appState === APP_STATES.REVIEW}
+          />
           <Typography variant="h5">
             Question <b>{currentQuestionIndex + 1}</b>/{totalQuestions}
           </Typography>

@@ -1,12 +1,11 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import ScoreActions from "./components/ScoreActions";
-const ScoreScreen = ({ score, onTryAgain, onReview }) => {
-  const handleTryAgain = () => {
-    onTryAgain();
+const ScoreScreen = ({ score, onRestart, onReview }) => {
+  const handleRestart = () => {
+    onRestart();
   };
   const handleReview = () => {
     onReview();
@@ -15,12 +14,12 @@ const ScoreScreen = ({ score, onTryAgain, onReview }) => {
     <Box>
       <Grid container>
         <Grid xs={12}>
-          <Typography variant="h1" gutterBottom>
+          <Typography variant="h1" gutterBottom >
             Your score is: {score}
           </Typography>
         </Grid>
         <Grid xs={12}>
-          <ScoreActions onTryAgain={handleTryAgain} onReview={handleReview} />
+          <ScoreActions onRestart={handleRestart} onReview={handleReview} />
         </Grid>
       </Grid>
     </Box>

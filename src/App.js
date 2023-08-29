@@ -8,18 +8,13 @@ import QuizScreen from "./screens/QuizScreen/QuizScreen";
 import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
 import QUESTIONS from "./data/questions.json";
 import { getScore, randomizeQuestions } from "./utils/quizUtils";
-
-const APP_STATES = {
-  INIT: "init",
-  START_QUIZ: "startQuiz",
-  SHOW_SCORE: "showScore",
-  REVIEW: "review",
-};
+import { APP_STATES } from "./config/constants";
 
 function App() {
   const [appState, setAppState] = useState(APP_STATES.INIT);
   const [score, setScore] = useState(0);
   const [questions, setQuestions] = useState(QUESTIONS);
+  const [submittedAnswers, setSubmittedAnswers] = useState([]);
 
   const handleStartQuiz = () => {
     setAppState(APP_STATES.START_QUIZ);
@@ -27,7 +22,7 @@ function App() {
     setQuestions(randomizedQuestions);
   };
 
-  const handleTryAgain = () => {
+  const handleRestart = () => {
     setAppState(APP_STATES.INIT);
   };
 
@@ -35,14 +30,12 @@ function App() {
     setScore(getScore(savedAnswers));
 
     setAppState(APP_STATES.SHOW_SCORE);
-    console.log(savedAnswers);
+    // console.log(savedAnswers);
+    setSubmittedAnswers(savedAnswers);
   };
 
   const handleReview = () => {
     setAppState(APP_STATES.REVIEW);
-  };
-  const handleSave = (savedAnswer, currentQuestionIndex) => {
-    // console.log("app.js", savedAnswer, currentQuestionIndex);
   };
 
   return (
@@ -55,18 +48,22 @@ function App() {
           questions={questions}
           onSubmit={handleSubmit}
           appState={appState}
-          onSave={handleSave}
         />
       )}
       {appState === APP_STATES.SHOW_SCORE && (
         <ScoreScreen
           score={score}
-          onTryAgain={handleTryAgain}
+          onRestart={handleRestart}
           onReview={handleReview}
         />
       )}
       {appState === APP_STATES.REVIEW && (
-        <ReviewScreen onRestart={handleTryAgain} />
+        <ReviewScreen
+          onRestart={handleRestart}
+          submittedAnswers={submittedAnswers}
+          questions={questions}
+          appState={appState}
+        />
       )}
     </Box>
   );

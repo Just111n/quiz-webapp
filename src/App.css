@@ -2,3 +2,9 @@
   text-align: center;
   color: #fff;
 }
+
+/* AnswersDisplay.css */
+.answerCard {
+  border-radius: 1px;
+  min-width: 640px;
+}

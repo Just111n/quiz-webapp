@@ -35,10 +35,6 @@ const QuizScreen = ({ questions, onSubmit, appState, onSave }) => {
     handleOpenSubmitDialog();
   };
 
-  const handleTimeOut = () => {
-    onSubmit();
-  };
-
   const handleOpenSubmitDialog = () => {
     setOpenConfirmDialog(true);
   };
@@ -49,6 +45,12 @@ const QuizScreen = ({ questions, onSubmit, appState, onSave }) => {
     setOpenConfirmDialog(false);
     onSubmit(savedAnswers);
   };
+
+  const handleTimeOut = () => {
+    onSubmit(savedAnswers);
+    console.log("timer ran out in QUIZSCREEN");
+  };
+
   const handleSelect = (answerIndex, isCorrect) => {
     const newSavedAnswers = [...savedAnswers];
     newSavedAnswers[currentQuestionIndex] = { answerIndex, isCorrect };
@@ -80,10 +82,10 @@ const QuizScreen = ({ questions, onSubmit, appState, onSave }) => {
         <Grid xs={12}>
           <QuestionDisplay
             question={currentQuestion.question_content}
-            isReview={false}
             currentQuestionIndex={currentQuestionIndex}
             totalQuestions={questions.length}
             onTimeOut={handleTimeOut}
+            appState={appState}
           />
         </Grid>
         <Grid xs={12}>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Box } from "@mui/material";
 
-const ScoreActions = ({ onTryAgain, onReview }) => {
-  const handleTryAgain = () => {
-    onTryAgain();
+const ScoreActions = ({ onRestart, onReview }) => {
+  const handleRestart = () => {
+    onRestart();
   };
   const handleReview = () => {
     onReview();
@@ -17,11 +17,16 @@ const ScoreActions = ({ onTryAgain, onReview }) => {
       justifyContent="center"
       gap={4}
     >
-      <Button variant="contained" size="large" onClick={handleTryAgain}>
+      <Button
+        variant="contained"
+        size="large"
+        onClick={handleRestart}
+        color="secondary"
+      >
         Try again
       </Button>
 
-      <Button variant="contained" size="large" onClick={handleReview}>
+      <Button variant="contained" size="large" onClick={handleReview} color="error">
         Review
       </Button>
     </Box>

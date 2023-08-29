@@ -18,7 +18,12 @@ const StartQuizScreen = ({ onStartQuiz }) => {
           </Typography>
         </Grid>
         <Grid xs={12}>
-          <Button variant="contained" size="large" onClick={handleClick}>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={handleClick}
+            color="secondary"
+          >
             Start
           </Button>
         </Grid>
