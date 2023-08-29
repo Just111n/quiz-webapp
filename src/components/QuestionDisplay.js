@@ -1,13 +1,11 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Timer from "./Timer";
 import { APP_STATES } from "../config/constants";
+import { WHITE } from "../config/constants";
 
 const QuestionDisplay = ({
   question,
@@ -36,18 +34,29 @@ const QuestionDisplay = ({
           width: 728,
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
+          position: "relative",
         }}
       >
         <CardContent>
-          <Timer
-            onTimeOut={handleTimeOut}
-            isTimeOut={appState === APP_STATES.REVIEW}
-          />
-          <Typography variant="h5">
-            Question <b>{currentQuestionIndex + 1}</b>/{totalQuestions}
-          </Typography>
-          <Typography variant="h5">{question}</Typography>
+          <Box
+            // position="absolute"
+            // top={0}
+            // left={0}
+            // right={0}
+            // sx={{ backgroundColor: WHITE }}
+          >
+            <Timer
+              onTimeOut={handleTimeOut}
+              isTimeOut={appState === APP_STATES.REVIEW}
+            />
+          </Box>
+          <Box>
+            <Typography variant="h5">
+              Question <b>{currentQuestionIndex + 1}</b>/{totalQuestions}
+            </Typography>
+            <Typography variant="h5">{question}</Typography>
+          </Box>
         </CardContent>
       </Card>
     </Box>

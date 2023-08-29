@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import ScoreActions from "./components/ScoreActions";
+import "../../App.css"
+
 const ScoreScreen = ({ score, onRestart, onReview }) => {
   const handleRestart = () => {
     onRestart();

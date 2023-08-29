@@ -9,6 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { APP_STATES } from "../config/constants";
+import { WHITE } from "../config/constants";
 
 const AnswersDisplay = ({ answers, appState, onSelect, selectedCardIndex }) => {
   const theme = useTheme(); // Add this line
@@ -36,6 +37,22 @@ const AnswersDisplay = ({ answers, appState, onSelect, selectedCardIndex }) => {
       return theme.palette.background.default; // Use theme's default
     }
   };
+  const getCardColor = (index) => {
+    if (appState === APP_STATES.START_QUIZ) {
+      return selectedCardIndex === index
+        ? WHITE // Use theme
+        : "default"; // Use theme's default
+    }
+    if (appState === APP_STATES.REVIEW) {
+      if (answers[index].correct) {
+        return WHITE;
+      }
+      if (!answers[index].correct & (selectedCardIndex === index)) {
+        return WHITE;
+      }
+      return "default"; // Use theme's default
+    }
+  };
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
@@ -48,9 +65,11 @@ const AnswersDisplay = ({ answers, appState, onSelect, selectedCardIndex }) => {
                 borderRadius: 1,
                 minWidth: 640,
                 backgroundColor: getCardBackgroundColor(index),
+                color: getCardColor(index),
                 ...(appState === APP_STATES.START_QUIZ && {
                   "&:hover": {
                     backgroundColor: theme.customPalette.hoverAnswer, // Your hover color from theme
+                    color: WHITE,
                     cursor: "pointer",
                   },
                 }),

@@ -8,3 +8,25 @@
   border-radius: 1px;
   min-width: 640px;
 }
+.MuiButton-root {
+  width: 128px;
+  height: 52px;
+  font-weight: 700;
+}
+
+.MuiButton-root.start-Next-TryAgain-Buttons {
+  font-weight: 700;
+}
+
+.MuiButton-root.start-Next-TryAgain-Buttons:hover {
+  background-color: #10b981;
+
+  color: white;
+}
+
+.MuiButton-root.previous-button:hover {
+}
+
+.MuiButton-root.submit-restart-buttons {
+  color: white;
+}

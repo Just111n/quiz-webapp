@@ -24,7 +24,7 @@ const ReviewScreen = ({ questions, appState, onRestart, submittedAnswers }) => {
   };
 
   return (
-    <Box paddingTop={10}>
+    <Box paddingTop={6}>
       <Grid container>
         <Grid xs={12}>
           <Actions

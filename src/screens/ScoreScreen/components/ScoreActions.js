@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Box } from "@mui/material";
+import "../../../App.css";
 
 const ScoreActions = ({ onRestart, onReview }) => {
   const handleRestart = () => {
@@ -22,11 +23,17 @@ const ScoreActions = ({ onRestart, onReview }) => {
         size="large"
         onClick={handleRestart}
         color="secondary"
+        className="start-Next-TryAgain-Buttons"
       >
         Try again
       </Button>
 
-      <Button variant="contained" size="large" onClick={handleReview} color="error">
+      <Button
+        variant="contained"
+        size="large"
+        onClick={handleReview}
+        color="error"
+      >
         Review
       </Button>
     </Box>

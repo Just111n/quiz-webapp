@@ -67,7 +67,7 @@ const QuizScreen = ({ questions, onSubmit, appState, onSave }) => {
   }, [savedAnswers, currentQuestionIndex]); // This will run every time savedAnswer changes
 
   return (
-    <Box paddingTop={10}>
+    <Box paddingTop={6}>
       <Grid container>
         <Grid xs={12}>
           <Actions

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Box, useTheme } from "@mui/material";
 import { APP_STATES } from "../config/constants";
+import "../App.css";
 
 const Actions = ({
   currentQuestionIndex,
@@ -25,6 +26,7 @@ const Actions = ({
         variant="contained"
         onClick={onPrevious}
         sx={{ backgroundColor: theme.customPalette.previousButton }}
+        className="previous-button"
       >
         Previous
       </Button>
@@ -34,6 +36,7 @@ const Actions = ({
         onClick={onNext}
         disabled={currentQuestionIndex === totalQuestions - 1}
         color="secondary"
+        className="start-Next-TryAgain-Buttons"
       >
         Next
       </Button>
@@ -43,6 +46,7 @@ const Actions = ({
             variant="contained"
             onClick={onSubmit}
             sx={{ backgroundColor: theme.customPalette.submitButton }}
+            className="submit-restart-buttons"
           >
             Submit
           </Button>
@@ -52,6 +56,7 @@ const Actions = ({
           variant="contained"
           onClick={onRestart}
           sx={{ backgroundColor: theme.customPalette.submitButton }}
+          className="submit-restart-buttons"
         >
           Restart
         </Button>

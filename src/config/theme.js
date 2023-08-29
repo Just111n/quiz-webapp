@@ -11,7 +11,7 @@ import {
   CURRENT_QUESTIONS_COLOR,
   INCORRECT_ANSWER_COLOR,
   CORRECT_ANSWER_COLOR,
-} from "../data/colors";
+} from "./colors";
 
 const theme = createTheme({
   palette: {
@@ -27,9 +27,9 @@ const theme = createTheme({
     success: {
       main: CORRECT_ANSWER_COLOR,
     },
-    // ... you can define other colors similarly and access them via theme.palette.yourColorName.main in the components
+    
   },
-  // Additional custom properties can be added
+  
   customPalette: {
     previousButton: PREVIOUS_BUTTON_COLOR,
     submitButton: SUBMIT_RESTART_BUTTONS_COLOR,
@@ -42,9 +42,34 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none", // This will disable the default uppercase transform
+          fontWeight: 700,
+          borderRadius: 10,
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+        },
+      },
+    },
+  },
+  typography: {
+    fontWeight: 700,
+    fontSize: 16,
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
 });
 
