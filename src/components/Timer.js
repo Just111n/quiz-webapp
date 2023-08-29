@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Typography, CircularProgress, Box } from "@mui/material";
 import { formatTime } from "../utils/quizUtils";
 import { useTimer } from "../config/timerContext";
@@ -16,6 +16,12 @@ const Timer = ({ onTimeOut, isTimeOut }) => {
   // Get color based on the remaining time
   const getColor = () =>
     secondsRemaining <= CRITICAL_TIME ? "red" : "#4f46e5";
+
+  useEffect(() => {
+    if (secondsRemaining === 0 && onTimeOut) {
+      onTimeOut();
+    }
+  }, [secondsRemaining, onTimeOut]);
 
   return (
     <Box position="relative" display="inline-flex">

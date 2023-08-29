@@ -9,8 +9,10 @@ import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
 import QUESTIONS from "./data/questions.json";
 import { getScore, randomizeQuestions } from "./utils/quizUtils";
 import { APP_STATES } from "./config/constants";
+import { useTimer } from "./config/timerContext";
 
 function App() {
+  const { resetTimer } = useTimer();
   const [appState, setAppState] = useState(APP_STATES.INIT);
   const [score, setScore] = useState(0);
   const [questions, setQuestions] = useState(QUESTIONS);
@@ -24,6 +26,7 @@ function App() {
 
   const handleRestart = () => {
     setAppState(APP_STATES.INIT);
+    resetTimer();
   };
 
   const handleSubmit = (savedAnswers) => {
