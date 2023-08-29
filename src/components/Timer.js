@@ -1,52 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Typography, CircularProgress, Box, useTheme } from "@mui/material";
+import React from "react";
+import { Typography, CircularProgress, Box } from "@mui/material";
 import { formatTime } from "../utils/quizUtils";
-import { WHITE } from "../config/constants";
+import { useTimer } from "../config/timerContext";
+import { TIMER_DURATION } from "../config/constants";
 
-const TIMER_DURATION = 90;
+const CRITICAL_TIME = 10; // Example, for when the time becomes critical like last 10 seconds.
 
-const Timer = ({ onStart, onTimeOut, isTimeOut }) => {
-  const [secondsRemaining, setSecondsRemaining] = useState(
-    isTimeOut ? 0 : TIMER_DURATION
-  );
-  const [hasStarted, setHasStarted] = useState(false);
+const Timer = ({ onTimeOut, isTimeOut }) => {
+  const { secondsRemaining: actualSecondsRemaining } = useTimer();
 
-  const timerStartColor = "#4f46e5";
+  // If isTimeOut prop is true, set timer to zero and display "End!"
+  const secondsRemaining = isTimeOut ? 0 : actualSecondsRemaining;
+  const timeText = isTimeOut ? "End!" : formatTime(secondsRemaining);
 
-  useEffect(() => {
-    if (onStart) {
-      onStart(() => setHasStarted(true));
-    } else {
-      setHasStarted(true);
-    }
-  }, [onStart]);
-
-  useEffect(() => {
-    if (isTimeOut) {
-      setHasStarted(false);
-      setSecondsRemaining(0);
-      return;
-    }
-
-    if (!hasStarted) return;
-
-    const timer = setTimeout(() => {
-      if (secondsRemaining > 0) {
-        setSecondsRemaining((prev) => prev - 1);
-      } else {
-        onTimeOut && onTimeOut();
-      }
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [secondsRemaining, onTimeOut, hasStarted, isTimeOut]);
-
-  const displayText =
-    !hasStarted || isTimeOut || secondsRemaining === 0
-      ? "End!"
-      : formatTime(secondsRemaining);
-
-  const getColor = secondsRemaining <= 10 ? "red" : timerStartColor;
+  // Get color based on the remaining time
+  const getColor = () =>
+    secondsRemaining <= CRITICAL_TIME ? "red" : "#4f46e5";
 
   return (
     <Box position="relative" display="inline-flex">
@@ -54,11 +23,8 @@ const Timer = ({ onStart, onTimeOut, isTimeOut }) => {
         variant="determinate"
         value={(100 * secondsRemaining) / TIMER_DURATION}
         size={72}
-        sx={{
-          color: getColor, // Use 'red' or any other desired color
-        }}
+        sx={{ color: getColor() }}
       />
-
       <Box
         top={0}
         left={0}
@@ -69,13 +35,8 @@ const Timer = ({ onStart, onTimeOut, isTimeOut }) => {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography
-          variant="h6"
-          sx={{
-            color: getColor, // Use 'red' or any other desired color
-          }}
-        >
-          {displayText}
+        <Typography variant="h6" sx={{ color: getColor() }}>
+          {timeText}
         </Typography>
       </Box>
     </Box>

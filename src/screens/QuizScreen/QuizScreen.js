@@ -5,10 +5,12 @@ import QuestionDisplay from "../../components/QuestionDisplay";
 import AnswersDisplay from "../../components/AnswersDisplay";
 import ConfirmDialog from "./components/ConfirmDialog";
 import Actions from "../../components/Actions";
+import { useTimer } from "../../config/timerContext";
 
 const QuizScreen = ({ questions, onSubmit, appState, onSave }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+  const { secondsRemaining, resetTimer } = useTimer();
 
   // Initialize savedAnswers as an array of nulls, representing no answer saved for each question.
   const [savedAnswers, setSavedAnswers] = useState(

@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Timer from "./Timer";
 import { APP_STATES } from "../config/constants";
 import { WHITE } from "../config/constants";
+import { useTimer } from "../config/timerContext";
 
 const QuestionDisplay = ({
   question,
@@ -15,6 +16,7 @@ const QuestionDisplay = ({
   totalQuestions,
   appState,
 }) => {
+  const { secondsRemaining } = useTimer();
   const handleTimeOut = () => {
     if (appState === APP_STATES.START_QUIZ) {
       onTimeOut();

@@ -6,3 +6,5 @@ export const APP_STATES = {
 };
 
 export const WHITE = "white";
+
+export const TIMER_DURATION = 90
