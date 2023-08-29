@@ -11,13 +11,13 @@ const StartQuizScreen = ({ onStartQuiz }) => {
   };
 
   return (
-    <Box>
+    <Box paddingTop={"4rem"}>
       <Grid container>
         <Grid xs={12}>
           <Typography
             variant="h1"
             gutterBottom
-            sx={{ fontSize: 48, fontWeight: 700, marginTop: 8 }}
+            sx={{ fontSize: "3rem", fontWeight: 700 }}
           >
             Welcome to React Quiz Game!
           </Typography>

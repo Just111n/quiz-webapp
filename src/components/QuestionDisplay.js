@@ -23,39 +23,47 @@ const QuestionDisplay = ({
   return (
     <Box
       display="flex"
+      flexDirection="column"
       justifyContent="center"
       alignItems="center"
       marginTop={5}
       marginBottom={5}
     >
+      <Box
+        sx={{
+          backgroundColor: WHITE,
+          borderRadius: "100%",
+          position: "relative",
+          top: 40,
+          zIndex: 5,
+          boxShadow:
+            "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Timer
+          onTimeOut={handleTimeOut}
+          isTimeOut={appState === APP_STATES.REVIEW}
+        />
+      </Box>
       <Card
         sx={{
-          height: 328,
-          width: 728,
+          height: 200,
+          width: 720,
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
-          position: "relative",
+          paddingTop: "3rem",
         }}
       >
         <CardContent>
-          <Box
-            // position="absolute"
-            // top={0}
-            // left={0}
-            // right={0}
-            // sx={{ backgroundColor: WHITE }}
-          >
-            <Timer
-              onTimeOut={handleTimeOut}
-              isTimeOut={appState === APP_STATES.REVIEW}
-            />
-          </Box>
           <Box>
-            <Typography variant="h5">
+            <Typography variant="h6">
               Question <b>{currentQuestionIndex + 1}</b>/{totalQuestions}
             </Typography>
-            <Typography variant="h5">{question}</Typography>
+            <Typography variant="h6">{question}</Typography>
           </Box>
         </CardContent>
       </Card>

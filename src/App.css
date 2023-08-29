@@ -30,3 +30,6 @@
 .MuiButton-root.submit-restart-buttons {
   color: white;
 }
+.MuiButton-root.submit-restart-buttons:hover {
+  background-color: rgba(251, 191, 36);
+}

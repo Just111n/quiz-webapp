@@ -16,7 +16,8 @@ const ScoreActions = ({ onRestart, onReview }) => {
       display="flex"
       justifyItems="center"
       justifyContent="center"
-      gap={4}
+      gap={3}
+      paddingTop={"1rem"}
     >
       <Button
         variant="contained"

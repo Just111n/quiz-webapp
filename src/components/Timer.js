@@ -53,7 +53,7 @@ const Timer = ({ onStart, onTimeOut, isTimeOut }) => {
       <CircularProgress
         variant="determinate"
         value={(100 * secondsRemaining) / TIMER_DURATION}
-        size={80}
+        size={72}
         sx={{
           color: getColor, // Use 'red' or any other desired color
         }}
