@@ -22,11 +22,12 @@ function App() {
     setAppState(APP_STATES.START_QUIZ);
     const randomizedQuestions = randomizeQuestions(questions);
     setQuestions(randomizedQuestions);
+    resetTimer();
+
   };
 
   const handleRestart = () => {
     setAppState(APP_STATES.INIT);
-    resetTimer();
   };
 
   const handleSubmit = (savedAnswers) => {
