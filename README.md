@@ -1,3 +1,19 @@
+# State Diagram of Quiz Web App
+
+```mermaid
+stateDiagram-v2
+    [*] --> Init: "APP_STATES.INIT"
+    Init --> StartQuiz: "onStartQuiz"
+    StartQuiz: "APP_STATES.START_QUIZ"
+    StartQuiz --> ShowScore: "onSubmit"
+    ShowScore: "APP_STATES.SHOW_SCORE"
+    ShowScore --> Init: "onRestart"
+    ShowScore --> Review: "onReview"
+    Review: "APP_STATES.REVIEW"
+    Review --> Init: "onRestart"
+```
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
